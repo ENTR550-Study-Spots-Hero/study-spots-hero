@@ -1,0 +1,14 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import StudySpot from "../../layouts/StudySpot.astro";
+
+export async function getStaticPaths() {
+    const spots = await getCollection("studySpot");
+    return spots.map((spot) => ({
+        params: { building: spot.slug },
+        props: spot,
+    }));
+}
+
+// Per building page
+---

@@ -13,4 +13,19 @@ const blog = defineCollection({
 	}),
 });
 
-export const collections = { blog };
+const studySpot = defineCollection({
+    type: 'content',
+    schema: z.object({
+        title: z.string(),
+        building: z.string(),
+        floor: z.string(),
+        hasCaenAccess: z.boolean(),
+        hasFood: z.boolean(),
+        // todo: add more fields
+        createdDate: z.coerce.date(),
+        updatedDate: z.coerce.date().optional(),
+        image: z.string().optional(),
+    }),
+});
+
+export const collections = { blog, studySpot};
