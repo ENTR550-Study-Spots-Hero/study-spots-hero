@@ -1,0 +1,19 @@
+---
+import HeaderLink from "./HeaderLink.astro";
+import Hamburger from "./Hamburger.astro";
+import Navigation from "./Navigation.astro";
+import "../styles/navbar.css";
+const maize = "#ffcb05";
+const blue = "#00274C";
+---
+
+<header>
+    <nav class="navbar">
+        <Hamburger />
+        <Navigation />
+    </nav>
+</header>
+
+<script>
+    import "../scripts/menu.js";
+</script>
