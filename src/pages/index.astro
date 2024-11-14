@@ -1,9 +1,8 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import HeaderNew from "../components/HeaderNew.astro";
+import Header from "../components/Header.astro";
 import "../styles/global.css";
 ---
 
@@ -12,7 +11,7 @@ import "../styles/global.css";
     <head>
         <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     </head>
-    <HeaderNew />
+    <Header />
     <body>
         <main>
             <h1>🧑‍🚀 Hello, Astronaut!</h1>
