@@ -28,7 +28,8 @@ h1 {
 /* nav styles */
 
 nav {
-    display: block;
+    display: inline-block;
+    width: 100%;
     margin: 0;
     justify-content: space-between;
     align-items: center;
@@ -41,7 +42,6 @@ nav {
     width: 100%;
     top: 5rem;
     left: 48px;
-    background-color: var(--maize);
     display: none;
     margin: 0;
 }
@@ -69,9 +69,9 @@ nav {
 
 @media screen and (min-width: 636px) {
     .nav-links {
-        margin-left: 5em;
         display: block;
         position: static;
+        text-align: center;
         width: auto;
         background: none;
     }
