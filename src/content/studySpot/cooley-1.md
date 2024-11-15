@@ -12,9 +12,15 @@ distanceToRestrooms: 1
 reservable: false
 busyness: 0
 
+hasFood: false
+floor: "Outside"
+hasCaenAccess: false
+createdDate: 'Jul 15 2022'
+
 description: 'Outside study spot located behind Cooley, can be accessed through he basement doors of the building, benches located all around the fountain (some in shade and some in sun).'
 pubDate: 'Jul 15 2022'
 ---
 
+Outside study spot located behind Cooley, can be accessed through he basement doors of the building, benches located all around the fountain (some in shade and some in sun).
 
 

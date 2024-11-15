@@ -6,8 +6,10 @@ import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
 
-const posts = (await getCollection("blog")).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+const posts = (await getCollection("studySpot")).sort(
+    (a, b) =>
+        (b.data.updatedDate ?? b.data.createdDate).valueOf() -
+        (a.data.updatedDate ?? a.data.createdDate).valueOf(),
 );
 ---
 
@@ -93,17 +95,17 @@ const posts = (await getCollection("blog")).sort(
                     {
                         posts.map((post) => (
                             <li>
-                                <a href={`/blog/${post.slug}/`}>
+                                <a href={`/study/${post.slug}/`}>
                                     <img
                                         width={720}
                                         height={360}
-                                        src={post.data.heroImage}
+                                        src={post.data.image}
                                         alt=""
                                     />
                                     <h4 class="title">{post.data.title}</h4>
                                     <p class="date">
                                         <FormattedDate
-                                            date={post.data.pubDate}
+                                            date={post.data.updatedDate ?? post.data.createdDate}
                                         />
                                     </p>
                                 </a>
