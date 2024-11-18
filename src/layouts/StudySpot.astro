@@ -19,7 +19,7 @@ const { title, building, floor, hasCaenAccess, hasFood, createdDate, updatedDate
         main {
             width: calc(100% - 2em);
             max-width: 100%;
-            margin: 0;
+            margin: 0 auto;
         }
         .spot-image {
             margin: 0 auto;
@@ -30,6 +30,9 @@ const { title, building, floor, hasCaenAccess, hasFood, createdDate, updatedDate
             margin: 0 auto;
             border-radius: 12px;
             box-shadow: var(--box-shadow);
+        }
+        .card-container {
+            margin: 60px auto 0px;
         }
         .prose {
             width: 720px;
@@ -54,10 +57,6 @@ const { title, building, floor, hasCaenAccess, hasFood, createdDate, updatedDate
         .last-updated-on {
             font-style: italic;
         }
-        .card {
-            margin-top: 200px;
-            width: 720px;
-        }
     </style>
 </head>
 
@@ -78,7 +77,9 @@ const { title, building, floor, hasCaenAccess, hasFood, createdDate, updatedDate
                 }
             </div>
 
-            <Card {...Astro.props}/>
+            <div class="card-container">
+                <Card {...Astro.props}/>
+            </div>
 
             <div class="prose">
                 <!-- <div class="title">
