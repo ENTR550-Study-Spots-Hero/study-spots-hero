@@ -4,6 +4,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
+import Card from "../components/Card.astro";
 type Props = CollectionEntry<"studySpot">["data"];
 
 const { title, building, floor, hasCaenAccess, hasFood, createdDate, updatedDate, image } = Astro.props;
@@ -53,37 +54,6 @@ const { title, building, floor, hasCaenAccess, hasFood, createdDate, updatedDate
             font-style: italic;
         }
     </style>
-    <style>
-        .card {
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px;
-            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-        }
-        .card-title {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        .icon-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 14px;
-        }
-        .icon img {
-            width: 24px;
-            height: 24px;
-            margin-bottom: 5px;
-        }
-    </style>
 </head>
 
 <body>
@@ -103,39 +73,7 @@ const { title, building, floor, hasCaenAccess, hasFood, createdDate, updatedDate
                 }
             </div>
 
-            <div class="card" style="margin-left:auto; margin-right:auto">
-                <div class="card-title">{title}</div>
-                <div class="icon-container">
-                    <div class="icon" title="Quiet Area">
-                        <img src="/icons/volume-small.png" alt="Quiet Area Icon">
-                        <span>Quiet</span>
-                    </div>
-                    <div class="icon" title="Collaborative Area">
-                        <img src="/icons/peoples.png" alt="Collaborative Icon">
-                        <span>Collab</span>
-                    </div>
-                    <div class="icon" title="CAEN Access">
-                        <img src="/icons/code-computer.png" alt="CAEN Access Icon">
-                        <span>CAEN</span>
-                    </div>
-                    <div class="icon" title="Natural Light">
-                        <img src="/icons/light.png" alt="Natural Light Icon">
-                        <span>Light</span>
-                    </div>
-                    <div class="icon" title="Outlets Available">
-                        <img src="/icons/plug-one.png" alt="Outlets Icon">
-                        <span>Outlets</span>
-                    </div>
-                    <div class="icon" title="Reservable">
-                        <img src="/icons/tickets-checked.png" alt="Reservable Icon">
-                        <span>Reserve</span>
-                    </div>
-                    <div class="icon" title="Has Food Nearby">
-                        <img src="/icons/tea-drink.png" alt="Food Icon">
-                        <span>Food</span>
-                    </div>
-                </div>
-            </div>
+            <Card {...Astro.props}/>
 
             <div class="prose">
                 <!-- <div class="title">

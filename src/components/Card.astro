@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from "astro:content";
+import "../styles/card.css";
+type Props = CollectionEntry<"studySpot">["data"];
+
+const { title } = Astro.props;
+---
+
+
+<div class="card" style="margin-left:auto; margin-right:auto">
+    <div class="card-title">{title}</div>
+    <div class="icon-container">
+        <div class="icon" title="Quiet Area">
+            <img src="/icons/volume-small.png" alt="Quiet Area Icon">
+            <span>Quiet</span>
+        </div>
+        <div class="icon" title="Collaborative Area">
+            <img src="/icons/peoples.png" alt="Collaborative Icon">
+            <span>Collab</span>
+        </div>
+        <div class="icon" title="CAEN Access">
+            <img src="/icons/code-computer.png" alt="CAEN Access Icon">
+            <span>CAEN</span>
+        </div>
+        <div class="icon" title="Natural Light">
+            <img src="/icons/light.png" alt="Natural Light Icon">
+            <span>Light</span>
+        </div>
+        <div class="icon" title="Outlets Available">
+            <img src="/icons/plug-one.png" alt="Outlets Icon">
+            <span>Outlets</span>
+        </div>
+        <div class="icon" title="Reservable">
+            <img src="/icons/tickets-checked.png" alt="Reservable Icon">
+            <span>Reserve</span>
+        </div>
+        <div class="icon" title="Has Food Nearby">
+            <img src="/icons/tea-drink.png" alt="Food Icon">
+            <span>Food</span>
+        </div>
+    </div>
+</div>
