@@ -9,6 +9,14 @@ export async function getStaticPaths() {
         props: spot,
     }));
 }
+type Props = CollectionEntry<"studySpot">;
+
+const spot = Astro.props;
+const { Content } = await spot.render();
 
 // Per building page
 ---
+
+<StudySpot {...spot.data}>
+    <Content />
+</StudySpot>

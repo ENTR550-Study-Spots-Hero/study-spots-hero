@@ -1,5 +1,5 @@
 ---
-title: 'Second post'
+title: 'Chairs outside Cooley Lab'
 building: 'Cooley Lab'
 quietArea: true
 collaborativeArea: false
@@ -11,6 +11,7 @@ chairComfort: 2
 distanceToRestrooms: 1
 reservable: false
 busyness: 0
+image: "/IMG_0519.JPG"
 
 hasFood: false
 floor: "Outside"
