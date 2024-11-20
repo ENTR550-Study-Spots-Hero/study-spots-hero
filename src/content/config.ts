@@ -13,19 +13,23 @@ const blog = defineCollection({
     }),
 });
 
-const studySpot = defineCollection({
+const studySpotCollection = defineCollection({
     type: 'content',
     schema: z.object({
-        title: z.string(),
         building: z.string(),
-        floor: z.string(),
-        hasCaenAccess: z.boolean(),
-        hasFood: z.boolean(),
-        // todo: add more fields
-        createdDate: z.coerce.date(),
-        updatedDate: z.coerce.date().optional(),
-        image: z.string().optional(),
+        timestamp: z.coerce.date(),
+        isQuiet: z.boolean(),
+        isCollaborative: z.boolean(),
+        caenAccess: z.boolean(),
+        naturalLight: z.number(),
+        comfortableTemp: z.number(),
+        outletAvailability: z.number(),
+        furnitureComfort: z.number(),
+        restroomDistance: z.number(),
+        reservable: z.boolean(),
+        busyness: z.number(),
+        title: z.string(),
     }),
 });
 
-export const collections = { blog, studySpot };
+export const collections = { blog, studySpotCollection };

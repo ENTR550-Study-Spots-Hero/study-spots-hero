@@ -26,6 +26,7 @@ keys = [
     "uniqueInfo3",
 ]
 
+
 def row_to_spot(response: list) -> dict:
     spot = {}
     i = 0
@@ -60,6 +61,7 @@ def row_to_spot(response: list) -> dict:
         i += 1
     return spot
 
+
 def responses_to_dict(response_file):
     study_spots = {}
     with open(response_file, "r") as f:
@@ -74,10 +76,11 @@ def responses_to_dict(response_file):
             study_spots[building].append(spot)
     return study_spots
 
+
 def gen_md_file(spot, i):
     md = f"""---
-building: {spot["building"]}
-timestamp: {spot["timestamp"]}
+building: "{spot["building"]}"
+timestamp: "{spot["timestamp"]}"
 isQuiet: {spot["isQuiet"]}
 isCollaborative: {spot["isCollaborative"]}
 caenAccess: {spot["caenAccess"]}
@@ -88,6 +91,7 @@ furnitureComfort: {spot["furnitureComfort"]}
 restroomDistance: {spot["restroomDistance"]}
 reservable: {spot["reservable"]}
 busyness: {spot["busyness"]}
+title: "Study Spot {i} in {spot["building"]}"
 ---
 
 # Study Spot {i} in {spot["building"]}
@@ -106,15 +110,13 @@ location details: {spot["locationDetails"]}
         os.makedirs(f"./_study_spots/{spot['building']}")
     with open(f"./_study_spots/{spot['building']}/{i}.md", "w+") as f:
         f.write(md)
+
+
 def gen_md_files(study_spots):
     for building, spots in study_spots.items():
         for i, spot in enumerate(spots):
             gen_md_file(spot, i)
 
 
-
-
 building_study_spots = responses_to_dict(sys.argv[1])
 gen_md_files(building_study_spots)
-
-
