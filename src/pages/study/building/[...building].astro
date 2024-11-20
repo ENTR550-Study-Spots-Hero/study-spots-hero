@@ -1,0 +1,35 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import StudySpot from "../../../layouts/StudySpot.astro";
+import BaseLayout from "../../../components/BaseLayout.astro";
+import GeneralArticle from "../../../layouts/GeneralArticle.astro";
+
+export async function getStaticPaths() {
+    const spots = await getCollection("studySpotCollection");
+    // Generate a set of all buildings
+    const buildings = new Set(spots.map((spot) => spot.data.building));
+    console.log(buildings);
+    // Generate a path for each building
+    const paths = Array.from(buildings).map((building) => ({
+        params: {
+            building: building,
+        },
+        props: {
+            spots: spots.filter((spot) => spot.data.building === building),
+            filterFunc: (spot) => spot.data.building == building,
+        },
+    }));
+    return paths;
+}
+type Props = CollectionEntry<"studySpotCollection">;
+const { building } = Astro.params;
+const { spots, filterFunc } = Astro.props;
+
+// Generate page per building
+---
+
+<BaseLayout>
+    <main>
+        {spots.filter(filterFunc).map((spot) => <StudySpot {...spot} />)}
+    </main>
+</BaseLayout>

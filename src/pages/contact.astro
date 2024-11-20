@@ -1,17 +1,19 @@
 ---
-import Layout from "../layouts/BlogPost.astro";
+import BaseLayout from "../components/BaseLayout.astro";
 ---
 
-<Layout
+<BaseLayout
     title="Contact"
     description="Contact Information"
     pubDate={new Date("November 15 2024")}
     heroImage="/blog-placeholder-about.jpg"
 >
-    <p>Hellen Tong</p>
-    <p>Kinjal Malharkar</p>
-    <p>Liam Mulcahy</p>
-    <p>Madison Minor</p>
-    <p>Yuchen Jiang</p>
-    <p>Ziheng Fu</p>
-</Layout>
+    <main>
+        <p>Hellen Tong</p>
+        <p>Kinjal Malharkar</p>
+        <p>Liam Mulcahy</p>
+        <p>Madison Minor</p>
+        <p>Yuchen Jiang</p>
+        <p>Ziheng Fu</p>
+    </main>
+</BaseLayout>

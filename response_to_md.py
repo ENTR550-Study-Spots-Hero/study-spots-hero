@@ -94,8 +94,6 @@ busyness: {spot["busyness"]}
 title: "Study Spot {i} in {spot["building"]}"
 ---
 
-# Study Spot {i} in {spot["building"]}
-
 location details: {spot["locationDetails"]}
 
 {spot["furtherInfo"]}
