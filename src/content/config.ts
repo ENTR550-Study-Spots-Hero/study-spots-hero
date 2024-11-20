@@ -16,6 +16,7 @@ const studySpotCollection = defineCollection({
         reservable: z.boolean(),
         busyness: z.number(),
         title: z.string(),
+        image: z.string().optional(),
     }),
 });
 

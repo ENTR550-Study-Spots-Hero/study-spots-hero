@@ -1,11 +1,11 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import Card from "../components/Card.astro";
-type Props = CollectionEntry<"studySpot">;
+type Props = CollectionEntry<"studySpotCollection">;
 
 // skeleton for generating a study spot post from a markdown file
-const { ...spot } = Astro.props;
-const { Content } = await spot.render();
+const { Content } = await Astro.props.render();
+const { data: spot } = Astro.props;
 ---
 
 <style>
@@ -54,14 +54,14 @@ const { Content } = await spot.render();
 <article>
     <div class="spot-image">
         {
-            spot.data.image && (
-                <img width={1020} height={250} src={spot.data.image} alt="" />
+            spot.image && (
+                <img width={1020} height={250} src={spot.image} alt="" />
             )
         }
     </div>
 
     <div class="card-container">
-        <Card {...Astro.props.data} />
+        <Card {...spot} />
     </div>
 
     <div class="prose">
