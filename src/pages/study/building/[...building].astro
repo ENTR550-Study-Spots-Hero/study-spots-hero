@@ -21,10 +21,13 @@ export async function getStaticPaths() {
     }));
     return paths;
 }
+
+type Spot = CollectionEntry<"studySpotCollection">;
 type Props = {
-    spots: CollectionEntry<"studySpotCollection">[];
-    filterFunc: (spot: CollectionEntry<"studySpotCollection">) => boolean;
+    spots: Spot[];
+    filterFunc: (spot: Spot) => boolean;
 };
+
 const { building } = Astro.params;
 const { spots, filterFunc } = Astro.props;
 
