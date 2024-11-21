@@ -109,7 +109,7 @@ restroomDistance: {spot["restroomDistance"]}
 reservable: {spot["reservable"]}
 busyness: {spot["busyness"]}
 title: "Study Spot {i} in {spot["building"]}"
-image: ""
+<!-- image: "" -->
 ---
 
 Located: {spot["locationDetails"]}
