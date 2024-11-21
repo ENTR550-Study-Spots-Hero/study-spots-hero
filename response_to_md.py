@@ -77,6 +77,23 @@ def responses_to_dict(response_file):
     return study_spots
 
 
+def general(spot):
+    queue = []
+    if 1 < spot["comfortableTemp"] < 4:
+        queue += f"- Really comforable."
+    if spot["busyness"] <= 1:
+        queue += f"Usually empty."
+    if True:
+        queue += {
+            0: "- No near by restrooms.",
+            1: "- No restrooms on the same floor.",
+            2: "- No restrooms on the same floor.",
+            3: "- Restrooms available on the same floor.",
+            4: "- Restrooms are easy to find.",
+            5: "- Restrooms within reach.",
+        }[spot["restroomDistance"]]
+    return queue.join("\n")
+
 def gen_md_file(spot, i):
     md = f"""---
 building: "{spot["building"]}"
@@ -92,17 +109,19 @@ restroomDistance: {spot["restroomDistance"]}
 reservable: {spot["reservable"]}
 busyness: {spot["busyness"]}
 title: "Study Spot {i} in {spot["building"]}"
+image: ""
 ---
 
-location details: {spot["locationDetails"]}
+Located: {spot["locationDetails"]}
 
-{spot["furtherInfo"]}
+#### Sketch
+- {spot["furtherInfo"]}
+{general(spot)}
 
-{spot["uniqueInfo"]}
-
-{spot["uniqueInfo2"]}
-
-{spot["uniqueInfo3"]}
+#### Notes
+- {spot["uniqueInfo"]}
+- {spot["uniqueInfo2"]}
+- {spot["uniqueInfo3"]}
 """
     if not os.path.exists(f"./_study_spots/{spot['building']}"):
         os.makedirs(f"./_study_spots/{spot['building']}")
