@@ -56,6 +56,8 @@ def row_to_spot(response: list) -> dict:
                 spot[key] = int(response[i]) > 0
             case "building":
                 spot[key] = str(response[i]).lower().replace(" ", "_")
+            case "busyness":
+                spot[key] = int(response[i])
             case _:
                 spot[key] = response[i]
         i += 1
@@ -78,21 +80,26 @@ def responses_to_dict(response_file):
 
 
 def general(spot):
+    print(spot)
     queue = []
     if 1 < spot["comfortableTemp"] < 4:
-        queue += f"- Really comforable."
+        queue.append("- Really comforable.")
     if spot["busyness"] <= 1:
-        queue += f"Usually empty."
+        queue.append("- Usually empty.")
     if True:
-        queue += {
-            0: "- No near by restrooms.",
-            1: "- No restrooms on the same floor.",
-            2: "- No restrooms on the same floor.",
-            3: "- Restrooms available on the same floor.",
-            4: "- Restrooms are easy to find.",
-            5: "- Restrooms within reach.",
-        }[spot["restroomDistance"]]
-    return queue.join("\n")
+        queue.append(
+            {
+                0: "- No nearby restrooms.",
+                1: "- No restrooms on the same floor.",
+                2: "- No restrooms on the same floor.",
+                3: "- Restrooms available on the same floor.",
+                4: "- Restrooms are easy to find.",
+                5: "- Restrooms within reach.",
+            }[spot["restroomDistance"]]
+        )
+    print("".join(map(lambda x: x + "\n", queue)))
+    return "".join(map(lambda x: x + "\n", queue))
+
 
 def gen_md_file(spot, i):
     md = f"""---
