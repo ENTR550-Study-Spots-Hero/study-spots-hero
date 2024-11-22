@@ -102,6 +102,11 @@ def general(spot):
 
 
 def gen_md_file(spot, i):
+    uniques = list(map(lambda x: f"- {x}\n", filter(lambda x: x == "", [
+        spot["uniqueInfo"],
+        spot["uniqueInfo2"],
+        spot["uniqueInfo3"],
+    ])))
     md = f"""---
 building: "{spot["building"]}"
 timestamp: "{spot["timestamp"]}"
@@ -126,9 +131,7 @@ Located: {spot["locationDetails"]}
 {general(spot)}
 
 #### Notes
-- {spot["uniqueInfo"]}
-- {spot["uniqueInfo2"]}
-- {spot["uniqueInfo3"]}
+{uniques}
 """
     if not os.path.exists(f"./_study_spots/{spot['building']}"):
         os.makedirs(f"./_study_spots/{spot['building']}")
