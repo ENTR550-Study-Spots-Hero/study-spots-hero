@@ -102,7 +102,7 @@ def general(spot):
 
 
 def gen_md_file(spot, i):
-    uniques = list(map(lambda x: f"- {x}\n", filter(lambda x: x == "", [
+    uniques = "".join(map(lambda x: f"- {x}\n", filter(lambda x: x == "", [
         spot["uniqueInfo"],
         spot["uniqueInfo2"],
         spot["uniqueInfo3"],
@@ -121,8 +121,8 @@ restroomDistance: {spot["restroomDistance"]}
 reservable: {spot["reservable"]}
 busyness: {spot["busyness"]}
 title: "Study Spot {i} in {spot["building"]}"
+image: "{spot["image"]}"
 ---
-<!-- image: "" Note: leave out of --- --- for now, else throws an error -->
 
 Located: {spot["locationDetails"]}
 
