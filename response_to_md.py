@@ -102,7 +102,7 @@ def general(spot):
 
 
 def gen_md_file(spot, i):
-    uniques = "".join(map(lambda x: f"- {x}\n", filter(lambda x: x == "", [
+    uniques = "".join(map(lambda x: f"- {x}\n", filter(lambda x: x != "", [
         spot["uniqueInfo"],
         spot["uniqueInfo2"],
         spot["uniqueInfo3"],
@@ -130,12 +130,15 @@ Located: {spot["locationDetails"]}
 - {spot["furtherInfo"]}
 {general(spot)}
 
-#### Notes
-{uniques}
+{"#### Notes\n" if uniques != "" else ""}{uniques}
 """
-    if not os.path.exists(f"./_study_spots/{spot['building']}"):
-        os.makedirs(f"./_study_spots/{spot['building']}")
-    with open(f"./_study_spots/{spot['building']}/{i}.md", "w+") as f:
+    parent = "src/content/studySpotCollection"
+    # parent = "./_study_spots"
+    if not os.path.exists(f"{parent}"):
+        raise Exception(f"Parent directory {parent} does not exist.")
+    if not os.path.exists(f"{parent}/{spot['building']}"):
+        os.makedirs(f"{parent}/{spot['building']}")
+    with open(f"{parent}/{spot['building']}/{i}.md", "w+") as f:
         f.write(md)
 
 
