@@ -20,17 +20,17 @@ export async function getStaticPaths() {
         },
     }));
 
-    const building_paths = Array.from(buildings).map((building) => ({
+    const building_paths = [{
         params: {
             spotArticle: "building",
         },
         props: {
             spots: spots,
-            filterFunc: (spot) => spot.data.building == building,
+            filterFunc: (spot) => true,
             titleText: "Study Spots by Building",
-            flavorText: "These are all the study spots, organized by building.",
+            flavorText: "These are all the study spots collected, organized by building.",
         },
-    }));
+    }]
 
     const caen_path = spots
         .filter((spot) => spot.data.caenAccess)
@@ -59,7 +59,22 @@ export async function getStaticPaths() {
                 flavorText: "These study spots get some extra sunlight.",
             },
         }));
-    const paths = [...solo_buildings, ...building_paths, ...caen_path, ...natural_light_paths];
+
+    const collaborative_paths = spots
+        .filter((spot) => spot.data.isCollaborative)
+        .map((spot) => ({
+            params: {
+                spotArticle: "collaborative",
+            },
+            props: {
+                spots: spots,
+                filterFunc: (s) => s.data.isCollaborative,
+                titleText: "Collaborative Study Spots",
+                flavorText: "These study spots are great for group work.",
+            },
+        }));
+
+    const paths = [...solo_buildings, ...building_paths, ...caen_path, ...natural_light_paths, ...collaborative_paths];
     return paths;
 }
 
