@@ -16,21 +16,25 @@ export async function getStaticPaths() {
             spots: spots,
             filterFunc: (spot) => spot.data.building == building,
             titleText: "Study Spots in " + building,
-            flavorText: "These are all the study spots collected in " + building + ".",
+            flavorText:
+                "These are all the study spots collected in " + building + ".",
         },
     }));
 
-    const building_paths = [{
-        params: {
-            spotArticle: "building",
+    const building_paths = [
+        {
+            params: {
+                spotArticle: "building",
+            },
+            props: {
+                spots: spots,
+                filterFunc: (spot) => true,
+                titleText: "Study Spots by Building",
+                flavorText:
+                    "These are all the study spots collected, organized by building.",
+            },
         },
-        props: {
-            spots: spots,
-            filterFunc: (spot) => true,
-            titleText: "Study Spots by Building",
-            flavorText: "These are all the study spots collected, organized by building.",
-        },
-    }]
+    ];
 
     const caen_path = spots
         .filter((spot) => spot.data.caenAccess)
@@ -74,13 +78,36 @@ export async function getStaticPaths() {
             },
         }));
 
-    const paths = [...solo_buildings, ...building_paths, ...caen_path, ...natural_light_paths, ...collaborative_paths];
+    const paths = [
+        ...solo_buildings,
+        ...building_paths,
+        ...caen_path,
+        ...natural_light_paths,
+        ...collaborative_paths,
+    ];
     return paths;
 }
 
 const { spots, filterFunc, titleText, flavorText } = Astro.props;
 const spotsToDisplay = spots.filter(filterFunc);
-const buildingsToDisplay = new Set(spotsToDisplay.map((spot) => spot.data.building));
+const buildingsToDisplay = new Set(
+    spotsToDisplay.map((spot) => spot.data.building),
+);
+
+const humanReadable = (building) => {
+    const tbl = {
+        bbb: "Bob and Betty Beyster Building",
+        biomedical_engineering_building: "Biomedical Engineering Building",
+        chrysler: "Chrysler Center",
+        cooley_lab: "Cooley Lab",
+        dude: "Duderstadt Center",
+        fxb: "Francois-Xavier Bagnoud Building",
+        gg_brown: "G.G. Brown Laboratory",
+        naval_architecture_building:
+            "Naval Architecture and Marine Engineering Building",
+    };
+    return tbl[building] || building;
+};
 ---
 
 <BaseLayout>
@@ -112,7 +139,7 @@ const buildingsToDisplay = new Set(spotsToDisplay.map((spot) => spot.data.buildi
                 Array.from(buildingsToDisplay).map((building) => (
                     // for each building, generate a link to the building page
                     <li>
-                        <a href={`#${building}`}>{building}</a>
+                        <a href={`#${building}`}>{humanReadable(building)}</a>
                     </li>
                 ))
             }
@@ -122,9 +149,11 @@ const buildingsToDisplay = new Set(spotsToDisplay.map((spot) => spot.data.buildi
             Array.from(buildingsToDisplay).map((building) => (
                 // for each building, generate an article in a div with the building name as the id
                 <div id={building}>
-                    <h2>{building}</h2>
+                    <h3>{humanReadable(building)}</h3>
                     <StudySpotArticle
-                        spots={spotsToDisplay.filter((spot) => spot.data.building === building)}
+                        spots={spotsToDisplay.filter(
+                            (spot) => spot.data.building === building,
+                        )}
                         filterFunc={filterFunc}
                     />
                 </div>
