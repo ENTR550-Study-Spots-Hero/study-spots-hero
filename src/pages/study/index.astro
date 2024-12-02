@@ -6,6 +6,20 @@ import { type CollectionEntry, getCollection } from "astro:content";
 const spots = await getCollection("studySpotCollection");
 // Generate a set of all buildings
 const buildings = new Set(spots.map((spot) => spot.data.building));
+const humanReadable = (building) => {
+    const tbl = {
+        bbb: "Bob and Betty Beyster Building",
+        biomedical_engineering_building: "Biomedical Engineering Building",
+        chrysler: "Chrysler Center",
+        cooley_lab: "Cooley Lab",
+        dude: "Duderstadt Center",
+        fxb: "Francois-Xavier Bagnoud Building",
+        gg_brown: "G.G. Brown Laboratory",
+        naval_architecture_building:
+            "Naval Architecture and Marine Engineering Building",
+    };
+    return tbl[building] || building;
+};
 ---
 
 <BaseLayout>
@@ -28,13 +42,16 @@ const buildings = new Set(spots.map((spot) => spot.data.building));
             </li>
         </ul>
 
-        <h2>Individual Building Study Spots</h2>
+        <h1>Individual Building Study Spots</h1>
         <ul>
             <!-- Individual building pages -->
             {
                 Array.from(buildings).map((building) => (
                     <li>
-                        <a href={`study/building/${building}`}> Study Spots in {building} </a>
+                        <a href={`study/building/${building}`}>
+                            {" "}
+                            Study Spots in {humanReadable(building)}{" "}
+                        </a>
                     </li>
                 ))
             }
