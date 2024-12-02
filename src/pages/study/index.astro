@@ -1,12 +1,21 @@
 ---
 import BaseLayout from "../../components/BaseLayout.astro";
-import GeneralArticle from "../../layouts/GeneralArticle.astro";
 import "../../styles/global.css";
 ---
 
 <BaseLayout>
     <main>
         <h1>Study Spot Articles</h1>
-        <a href="study/building"> Study Spots by Building </a>
+        <ul>
+            <li>
+                <a href="study/building"> Study Spots by Building </a>
+            </li>
+            <li>
+                <a href="study/caen"> Study Spots with CAEN </a>
+            </li>
+            <li>
+                <a href="study/natural_light"> Study Spots with natural light </a>
+            </li>
+        </ul>
     </main>
 </BaseLayout>

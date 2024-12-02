@@ -1,0 +1,108 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import BaseLayout from "../../components/BaseLayout.astro";
+import StudySpotArticle from "../../components/StudySpotArticle.astro";
+import type { ACTION_ERROR_CODES, ACTION_QUERY_PARAMS } from "astro:actions";
+
+export async function getStaticPaths() {
+    const spots = await getCollection("studySpotCollection");
+    // Generate a set of all buildings
+    const buildings = new Set(spots.map((spot) => spot.data.building));
+
+    const building_paths = Array.from(buildings).map((building) => ({
+        params: {
+            spotArticle: "building",
+        },
+        props: {
+            spots: spots,
+            filterFunc: (spot) => spot.data.building == building,
+            titleText: "Study Spots by Building",
+            flavorText: "These are all the study spots, organized by building.",
+        },
+    }));
+
+    const caen_path = spots
+        .filter((spot) => spot.data.caenAccess)
+        .map((spot) => ({
+            params: {
+                spotArticle: "caen",
+            },
+            props: {
+                spots: spots,
+                filterFunc: (s) => s.data.caenAccess,
+                titleText: "Study Spots with CAEN",
+                flavorText: "These study spots have CAEN computer access",
+            },
+        }));
+
+    const natural_light_paths = spots
+        .filter((spot) => spot.data.naturalLight)
+        .map((spot) => ({
+            params: {
+                spotArticle: "natural_light",
+            },
+            props: {
+                spots: spots,
+                filterFunc: (s) => s.data.naturalLight > 2,
+                titleText: "Study Spots with Natural Light",
+                flavorText: "These study spots get some extra sunlight.",
+            },
+        }));
+    const paths = [...building_paths, ...caen_path, ...natural_light_paths];
+    return paths;
+}
+
+const { spots, filterFunc, titleText, flavorText } = Astro.props;
+const spotsToDisplay = spots.filter(filterFunc);
+const buildingsToDisplay = new Set(spotsToDisplay.map((spot) => spot.data.building));
+---
+
+<BaseLayout>
+    <main>
+        <h1>{titleText}</h1>
+        <p>{flavorText}</p>
+
+        <!-- Table of contents, spots organized by building -->
+        Table of contents
+        <style>
+            .toc ul {
+                list-style-type: disc;
+                padding: 0;
+            }
+            .toc li {
+                margin: 0em 0;
+            }
+            .toc a {
+                text-decoration: none;
+                color: black;
+            }
+            .toc a:hover {
+                color: blue;
+            }
+        </style>
+        <ul class="toc">
+            {
+                // jsx: generate a link for each building
+                Array.from(buildingsToDisplay).map((building) => (
+                    // for each building, generate a link to the building page
+                    <li>
+                        <a href={`#${building}`}>{building}</a>
+                    </li>
+                ))
+            }
+        </ul>
+        {
+            // jsx: generate a link for each building
+            Array.from(buildingsToDisplay).map((building) => (
+                // for each building, generate an article in a div with the building name as the id
+                <div id={building}>
+                    <h2>{building}</h2>
+                    <StudySpotArticle
+                        spots={spotsToDisplay.filter((spot) => spot.data.building === building)}
+                        filterFunc={filterFunc}
+                    />
+                </div>
+            ))
+        }
+    </main>
+</BaseLayout>

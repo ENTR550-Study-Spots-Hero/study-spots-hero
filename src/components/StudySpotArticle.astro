@@ -1,0 +1,18 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import StudySpot from "../layouts/StudySpot.astro";
+import BaseLayout from "../components/BaseLayout.astro";
+
+
+type Spot = CollectionEntry<"studySpotCollection">;
+type Props = {
+    spots: Spot[];
+    filterFunc: (spot: Spot) => boolean;
+};
+
+const { building } = Astro.params;
+const { spots, filterFunc } = Astro.props;
+
+// Generate set of study spots based on given filter
+---
+{spots.filter(filterFunc).map((spot) => <StudySpot {...spot} />)}
