@@ -102,6 +102,16 @@ def general(spot):
 
 
 def gen_md_file(spot, i):
+    building_name = {
+        "bbb": "Bob and Betty Beyster Building",
+        "biomedical_engineering_building": "Biomedical Engineering Building",
+        "chrysler": "Chrysler Center",
+        "cooley_lab": "Cooley Lab",
+        "dude": "Duderstadt Center",
+        "fxb": "Francois-Xavier Bagnoud Building",
+        "gg_brown": "G.G. Brown Laboratory",
+        "naval_architecture_building": "Naval Architecture and Marine Engineering Building",
+    }[spot["building"]]
     uniques = "".join(map(lambda x: f"- {x}\n", filter(lambda x: x != "", [
         spot["uniqueInfo"],
         spot["uniqueInfo2"],
@@ -120,7 +130,7 @@ furnitureComfort: {spot["furnitureComfort"]}
 restroomDistance: {spot["restroomDistance"]}
 reservable: {spot["reservable"]}
 busyness: {spot["busyness"]}
-title: "Study Spot {i} in {spot["building"]}"
+title: "Study Spot {i} in {building_name}"
 image: "{spot["image"]}"
 ---
 
