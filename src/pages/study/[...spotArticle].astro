@@ -2,12 +2,23 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import BaseLayout from "../../components/BaseLayout.astro";
 import StudySpotArticle from "../../components/StudySpotArticle.astro";
-import type { ACTION_ERROR_CODES, ACTION_QUERY_PARAMS } from "astro:actions";
 
 export async function getStaticPaths() {
     const spots = await getCollection("studySpotCollection");
     // Generate a set of all buildings
     const buildings = new Set(spots.map((spot) => spot.data.building));
+
+    const solo_buildings = Array.from(buildings).map((building) => ({
+        params: {
+            spotArticle: "building/" + building,
+        },
+        props: {
+            spots: spots,
+            filterFunc: (spot) => spot.data.building == building,
+            titleText: "Study Spots in " + building,
+            flavorText: "These are all the study spots collected in " + building + ".",
+        },
+    }));
 
     const building_paths = Array.from(buildings).map((building) => ({
         params: {
@@ -48,7 +59,7 @@ export async function getStaticPaths() {
                 flavorText: "These study spots get some extra sunlight.",
             },
         }));
-    const paths = [...building_paths, ...caen_path, ...natural_light_paths];
+    const paths = [...solo_buildings, ...building_paths, ...caen_path, ...natural_light_paths];
     return paths;
 }
 

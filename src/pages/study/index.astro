@@ -1,6 +1,11 @@
 ---
 import BaseLayout from "../../components/BaseLayout.astro";
 import "../../styles/global.css";
+
+import { type CollectionEntry, getCollection } from "astro:content";
+const spots = await getCollection("studySpotCollection");
+// Generate a set of all buildings
+const buildings = new Set(spots.map((spot) => spot.data.building));
 ---
 
 <BaseLayout>
@@ -14,8 +19,22 @@ import "../../styles/global.css";
                 <a href="study/caen"> Study Spots with CAEN </a>
             </li>
             <li>
-                <a href="study/natural_light"> Study Spots with natural light </a>
+                <a href="study/natural_light">
+                    Study Spots with natural light
+                </a>
             </li>
+        </ul>
+
+        <h2>Individual Building Study Spots</h2>
+        <ul>
+            <!-- Individual building pages -->
+            {
+                Array.from(buildings).map((building) => (
+                    <li>
+                        <a href={`study/building/${building}`}> Study Spots in {building} </a>
+                    </li>
+                ))
+            }
         </ul>
     </main>
 </BaseLayout>
