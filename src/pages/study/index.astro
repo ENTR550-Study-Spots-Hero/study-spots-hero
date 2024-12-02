@@ -58,3 +58,29 @@ const humanReadable = (building) => {
         </ul>
     </main>
 </BaseLayout>
+
+<style>
+    ul {
+        list-style-type: none;
+        padding: 0;
+        /* display: flex;
+        flex-wrap: wrap;
+        justify-content: start; */
+    }
+    li {
+        margin-bottom: 1rem;
+    }
+    a {
+        display: inline-block;
+        text-decoration: none;
+        padding: 8px 15px;
+        background-color: var(--mblue);
+        color: var(--maize);
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    a:hover {
+        background-color: var(--mbluelight);
+        color: var(--maizelight);
+    }
+</style>
